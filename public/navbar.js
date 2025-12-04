@@ -2,6 +2,7 @@
 console.log("Navbar loaded")
 // attach navigation to buttons that have data-href
 document.addEventListener('DOMContentLoaded', () => {
+  
   document.querySelectorAll('.nav-item[data-href]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const url = btn.getAttribute('data-href');
@@ -18,11 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const login = document.getElementById("loginBtn");
   const brand = document.querySelector(".brand");
 
-  for (i = 0; i < document.querySelectorAll(".-nav-item").length; i++) {
-    document.querySelectorAll(".nav-item")[i].addEventListener("click", () => {
-      window.location.href = "/dashboard";
-    });
-  }
+  
 
   // Toggle active class for clicked nav item (visual)
   items.forEach((btn) => {
@@ -36,12 +33,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Simple handlers (replace with routing/modals as needed)
   signup.addEventListener("click", () => {
     console.log("Signup clicked");
+    const url  = signup.getAttribute('data-href');
+    if(!url) return;
     // open signup modal or navigate
+    window.location.href = url;
   });
 
   login.addEventListener("click", () => {
     console.log("Login clicked");
     // open login modal or navigate
+    const url = login.getAttribute('data-href');
+    if(!url) return;
+    window.location.href = url;
   });
 
   // keyboard: left/right arrow navigation between center items

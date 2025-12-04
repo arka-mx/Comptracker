@@ -12,7 +12,7 @@ app.get("/",(req,res)=>{
     res.render("home.ejs")
 })
 app.get("/dashboard",(req,res)=>{
-    res.send("THIS IS THE DASHBOARD")
+    res.render("dashboard.ejs")
 })
 app.listen(port,()=>{
     console.log("Running index.js on port "+port)
