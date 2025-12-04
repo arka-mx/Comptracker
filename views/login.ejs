@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Competitive Trackers | Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<div class="auth-shell">
+  <!-- LEFT: LOGIN -->
+  <div class="auth-left">
+    <div>
+      <!-- Brand -->
+      <div class="brand-row">
+        <div class="brand-logo">
+          <div class="brand-logo-inner">CT</div>
+        </div>
+        <div>
+          <div class="brand-text-title">Competitive Trackers</div>
+          <div class="brand-text-sub">Track every problem. See your climb.</div>
+        </div>
+      </div>
+
+      <!-- Main text -->
+      <div class="auth-main">
+        <div class="auth-heading">Welcome back, grinder 👋</div>
+        <div class="auth-subtitle">
+          Log in to sync your LeetCode, CodeChef, Codeforces and more...
+        </div>
+
+        <div class="pill-row">
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>Daily streaks on fire</span>
+          </div>
+          <div class="pill-badge">+132 solved this month</div>
+        </div>
+
+        <!-- Login form -->
+        <form class="auth-form" onsubmit="event.preventDefault(); alert('Handle login here');">
+          <div class="field-group">
+            <label class="field-label">
+              <span>Email</span>
+              <span class="field-hint">Use your account email</span>
+            </label>
+            <div class="field-input-wrapper">
+              <input class="input" type="email" required placeholder="you@competitive.dev" />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">
+              <span>Password</span>
+              <span class="field-hint">Min. 8 characters</span>
+            </label>
+            <div class="field-input-wrapper">
+              <input id="password-input" class="input" type="password" required placeholder="••••••••" />
+              <span id="password-toggle" class="password-toggle">Show</span>
+            </div>
+          </div>
+
+          <div class="auth-row">
+            <label class="checkbox">
+              <input type="checkbox" />
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <div class="btn-row">
+            <button type="submit" class="btn btn-primary">
+              Login to Dashboard
+            </button>
+
+            <button type="button" class="btn btn-secondary">
+              Guest Mode
+            </button>
+          </div>
+
+          <div class="divider">
+            <div class="divider-line"></div>
+            <span>or continue with</span>
+            <div class="divider-line"></div>
+          </div>
+
+          <button type="button" class="btn btn-google" onclick="alert('Handle Google OAuth here')">
+            <span class="btn-google-icon">
+              <!-- Simple Google "G" logo SVG -->
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#EA4335" d="M12 10.2v3.9h5.4c-.2 1.2-.9 2.3-1.9 3.1l3.1 2.4c1.8-1.7 2.8-4.1 2.8-6.9 0-.7-.1-1.4-.2-2H12z"/>
+                <path fill="#34A853" d="M6.5 14.3l-.9.7-2.5 1.9C4.4 19.8 7 21.2 10 21.2c2.4 0 4.4-.8 5.9-2.1l-3.1-2.4c-.8.5-1.8.8-2.8.8-2.2 0-4-1.5-4.7-3.4z"/>
+                <path fill="#4A90E2" d="M3.1 7.9C2.4 9 2 10.4 2 11.8c0 1.4.4 2.8 1.1 3.9l3.5-2.7C6.3 12.3 6.1 11.6 6.1 11c0-.6.1-1.3.4-1.9L3.1 7.9z"/>
+                <path fill="#FBBC05" d="M10 4.8c1.3 0 2.5.4 3.5 1.3l2.6-2.6C14.4 2.1 12.4 1.2 10 1.2 7 1.2 4.4 2.6 3.1 4.9l3.4 2.6C7 6.3 8.7 4.8 10 4.8z"/>
+              </svg>
+            </span>
+            <span>Sign in with Google</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer text -->
+    <div class="auth-footer">
+      <span>New to Competitive Trackers?</span>
+      <span> <a href="#">Create an account</a> · <a href="#">Learn more</a> </span>
+    </div>
+  </div>
+
+  <!-- RIGHT: VIBRANT IMAGE / ILLUSTRATION -->
+  <div class="auth-right">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="illustration-shell">
+      <div class="hero-tag">
+        <span class="hero-tag-dot"></span>
+        <span>Live competitive stats</span>
+      </div>
+
+      <div class="hero-title">
+        See every problem you solve
+        <br />
+        turning into <span class="highlight">visual progress</span>.
+      </div>
+
+      <div class="hero-subtitle">
+        Competitive Trackers pulls in attempts from LeetCode, CodeChef, Codeforces and more,
+        and turns them into a clean, animated dashboard just for you.
+      </div>
+
+      <!-- "Illustration" card (acts as the visual for your website) -->
+      <div class="hero-board">
+        <div class="hero-board-header">
+          <div class="hero-board-title">
+            <span>Today’s grind overview</span>
+            <span>CompetitiveTrackers · 7-day streak</span>
+          </div>
+          <div class="hero-dots">
+            <span class="hero-dot"></span>
+            <span class="hero-dot violet"></span>
+            <span class="hero-dot yellow"></span>
+          </div>
+        </div>
+
+        <div class="hero-chart-row">
+          <div class="hero-chart">
+            <div class="hero-chart-line"></div>
+            <div class="hero-chart-pulse"></div>
+          </div>
+
+          <div class="hero-legend">
+            <div class="legend-item">
+              <div class="legend-left">
+                <div class="legend-badge lc">LC</div>
+                <div class="legend-label">
+                  <span>LeetCode</span>
+                  <span>4 questions · 2 hard</span>
+                </div>
+              </div>
+              <span class="legend-value">+220 XP</span>
+            </div>
+
+            <div class="legend-item">
+              <div class="legend-left">
+                <div class="legend-badge cf">CF</div>
+                <div class="legend-label">
+                  <span>Codeforces</span>
+                  <span>Rated contest finished</span>
+                </div>
+              </div>
+              <span class="legend-value">+38 Δ</span>
+            </div>
+
+            <div class="legend-item">
+              <div class="legend-left">
+                <div class="legend-badge cc">CC</div>
+                <div class="legend-label">
+                  <span>CodeChef</span>
+                  <span>2 new topics</span>
+                </div>
+              </div>
+              <span class="legend-value">+3 badges</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-card">
+          <div class="floating-card-title">
+            Focus mode active
+          </div>
+          <div class="floating-chip-row">
+            <span class="floating-chip">
+              <span class="floating-chip-dot"></span>
+              30 mins DSA
+            </span>
+            <span class="floating-chip">
+              <span class="floating-chip-dot"></span>
+              12/15 streak
+            </span>
+            <span class="floating-chip">
+              <span class="floating-chip-dot"></span>
+              Rating goal: 1800+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../public/login.js"></script>
+
+</body>
+</html>

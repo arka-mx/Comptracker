@@ -1,0 +1,163 @@
+:root{
+  /* Palette derived from provided image */
+  --burnt-brown: #A8532E;   /* warm accent */
+  --tan:         #D9AB86;   /* softer accent */
+  --charcoal:    #3A3A3A;   /* medium dark */
+  --near-black:  #151515;   /* deepest */
+  --muted-text:  #C9C7C2;
+  --glass-border: rgba(255,255,255,0.04);
+  --glass-bg: rgba(255,255,255,0.02);
+  --nav-height: 72px;
+  --btn-radius: 10px;
+  --hover-dur: 0.30s;
+  font-family: Inter, Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+/* page background for contrast */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background: linear-gradient(180deg,#0b0d0e 0%, var(--near-black) 65%);color:var(--muted-text);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* NAVBAR */
+.navbar{
+  height: var(--nav-height);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding: 0 26px;
+
+  /* glassy look */
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(5,6,7,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+
+  position: sticky;
+  top:0;
+  z-index:50;
+}
+
+/* Sections */
+.nav-left, .nav-center, .nav-right { display:flex; align-items:center; }
+.nav-left { min-width:160px; }
+.nav-center{
+  gap:12px;
+  margin:0 auto;
+  justify-content:center;
+  flex:1 1 auto;
+  max-width:980px;
+  padding:0 10px;
+}
+.nav-right { min-width:180px; justify-content:flex-end; gap:10px; }
+
+/* Brand */
+.brand{
+  color: var(--tan);
+  font-weight:800;
+  letter-spacing:2px;
+  font-size:18px;
+  padding:6px 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.004));
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.02);
+  box-shadow: 0 6px 16px rgba(3,4,5,0.55);
+  cursor:default;
+}
+
+/* Base button styling (applies to all buttons) */
+button{
+  -webkit-appearance:none;
+  appearance:none;
+  border-radius: var(--btn-radius);
+  padding:10px 14px;
+  font-weight:600;
+  font-size:14px;
+  color: var(--muted-text);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  border: 1px solid rgba(255,255,255,0.04);
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition: transform var(--hover-dur) ease, box-shadow var(--hover-dur) ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px rgba(2,3,4,0.6);
+}
+
+/* press feedback */
+button:active{ transform: translateY(1px) scale(0.998); }
+
+/* auth buttons (right) */
+.auth-btn{ padding:8px 12px; color:var(--near-black); background: linear-gradient(180deg, var(--tan), rgba(217,171,134,0.9)); border: none; }
+.auth-btn:not(.primary){ background: transparent; color:var(--muted-text); border:1px solid rgba(255,255,255,0.03) }
+.auth-btn.primary{ box-shadow: 0 10px 26px rgba(10,8,6,0.55); color:var(--near-black) }
+
+/* center nav items (the platform buttons) */
+.nav-item{
+  min-width:110px;
+  padding:10px 16px;
+  text-align:center;
+  color:var(--muted-text);
+  background: linear-gradient(180deg, rgba(255,255,255,0.008), rgba(255,255,255,0.004));
+  border: 1px solid rgba(255,255,255,0.03);
+  z-index:0;
+}
+
+/* gradient overlay via pseudo-element to achieve smooth shift */
+.nav-item::before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--burnt-brown), var(--tan), var(--charcoal));
+  background-size: 200% 100%;
+  filter: blur(18px);
+  opacity: 0.10;
+  transform: translateX(-12%);
+  transition: opacity var(--hover-dur) ease, transform var(--hover-dur) ease, background-position var(--hover-dur) ease;
+  pointer-events:none;
+}
+
+/* hover: smooth gradient shift (0.3s) */
+.nav-item:hover::before{
+  opacity: 0.30;
+  transform: translateX(0%);
+  background-position: 100% 50%;
+}
+
+/* lift effect on hover */
+.nav-item:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(2,3,4,0.7);
+}
+
+/* focus for accessibility */
+.nav-item:focus{ outline: 2px solid rgba(168,120,80,0.18); outline-offset:4px; z-index:3; }
+
+/* sheen to all buttons */
+.nav-item::after, .auth-btn::after, .brand::after{
+  content:"";
+  position:absolute;
+  left:0; top:0; width:100%; height:100%;
+  border-radius:inherit;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+  pointer-events:none;
+}
+
+/* active visual state */
+.nav-item.active{ box-shadow: 0 16px 40px rgba(5,5,5,0.75); }
+
+/* responsive */
+@media (max-width:920px){
+  .nav-center{ gap:8px; max-width:640px; }
+  .nav-item{ min-width:86px; padding:8px 10px; font-size:13px; }
+  .nav-left{ min-width:120px; }
+  .nav-right{ min-width:120px; gap:8px; }
+}
+
+/* demo page content */
+.page-body{ padding:48px; text-align:center; }
+.hero h1{ color:var(--tan); margin:36px 0 8px; font-weight:800; font-size:28px; }
+.hero p{ color:#bdb6ad; margin:0 0 20px; }

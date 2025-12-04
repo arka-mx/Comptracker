@@ -1,0 +1,89 @@
+
+
+<%
+  // fallback sample data
+  const defaultCards = [
+    { title: 'Collective', questions: 128, streak: 5 },
+    { title: 'LeetCode', questions: 94, streak: 10 },
+    { title: 'Codeforces', questions: 76, streak: 3 },
+    { title: 'CodeChef', questions: 52, streak: 2 }
+  ];
+  const items = Array.isArray(typeof cards !== 'undefined' ? cards : null) ? cards : defaultCards;
+%>
+
+<section class="dashboard">
+  <% items.forEach(function(card){ %>
+    <div class="card" role="group" aria-label="<%= card.title %>">
+      <h3 class="card-title"><%= card.title %></h3>
+      <p class="card-questions"><%= typeof card.questions !== 'undefined' ? card.questions : 0 %> solved</p>
+      <p class="card-streak"><span class="dot" aria-hidden="true"></span> Day streak: <%= typeof card.streak !== 'undefined' ? card.streak : 0 %></p>
+    </div>
+  <% }) %>
+</section>
+
+
+<style>
+/* START: cards partial styles (copy into your main stylesheet instead of keeping inline in production) */
+:root{
+  --bg-1: #0b0b0b;
+  --accent-dark: #1f1a18;
+  --accent-1: #3f2f2a;
+  --accent-2: #b88a58;
+  --glass-alpha: 0.12;
+  --glass-border: rgba(255,255,255,0.06);
+  --text: #f5efe6;
+  --muted: #cbb8a1;
+  --radius: 14px;
+}
+
+.dashboard{
+  margin: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:18px;
+}
+@media (max-width: 1000px){ .dashboard{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px){ .dashboard{ grid-template-columns: 1fr; gap:14px; } }
+
+.card{
+  position:relative;
+  padding:18px;
+  border-radius:var(--radius);
+  min-height:130px;
+  display:flex; flex-direction:column; justify-content:flex-start;
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  background: linear-gradient(180deg, rgba(255,255,255,var(--glass-alpha)), rgba(255,255,255,0.02));
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 6px 18px rgba(2,2,2,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  transition: transform .22s ease, box-shadow .22s ease;
+  overflow:hidden;
+}
+.card::before{ content:""; position:absolute; left:0; right:0; top:0; height:6px; background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); border-top-left-radius: calc(var(--radius) - 2px); border-top-right-radius: calc(var(--radius) - 2px); }
+.card::after{ content:""; position:absolute; inset:0; background: linear-gradient(135deg, rgba(255,255,255,0.01), transparent 30%); pointer-events:none; }
+.card:hover{ transform: translateY(-6px); box-shadow: 0 18px 40px rgba(2,2,2,0.7), inset 0 1px 0 rgba(255,255,255,0.02); }
+.card-title{ font-size:1.05rem; margin:8px 0 6px 0; font-weight:600; color:var(--text); }
+.card-questions{ margin:0; font-size:1.6rem; font-weight:700; line-height:1; color:var(--accent-2); margin-bottom:8px; }
+.card-streak{ margin:0; font-size:0.92rem; color:var(--muted); display:flex; align-items:center; gap:8px; }
+.card-streak .dot{ width:10px; height:10px; border-radius:50%; background: linear-gradient(180deg, #ffdb9b, #c47e34); box-shadow: 0 2px 6px rgba(196,126,52,0.2); }
+/* END */
+</style>
+
+<script>
+  // If you need to update the cards client-side, you can provide a JSON object on the page
+  // and re-render elements. This tiny helper safely updates numeric fields (optional).
+  (function(){
+    // Example: window._COMPTRACKER_CARDS = [{ title:'X', questions:10, streak:2 }, ...];
+    if (!window._COMPTRACKER_CARDS) return;
+    const root = document.currentScript && document.currentScript.previousElementSibling;
+    if (!root) return;
+    const nodes = root.querySelectorAll('.card');
+    window._COMPTRACKER_CARDS.forEach((c, i) => {
+      if (!nodes[i]) return;
+      const q = nodes[i].querySelector('.card-questions');
+      const s = nodes[i].querySelector('.card-streak');
+      if (q) q.textContent = (typeof c.questions !== 'undefined' ? c.questions : 0) + ' solved';
+      if (s) s.innerHTML = '<span class="dot" aria-hidden="true"></span> Day streak: ' + (typeof c.streak !== 'undefined' ? c.streak : 0);
+    });
+  })();
+</script>

@@ -1,0 +1,114 @@
+:root{
+  --black:#050510;
+  --black-2:#0b0b0d;
+  --yellow:#ffd400;
+  --muted:#bdb7a8;
+  --card-shadow:0 18px 40px rgba(0,0,0,0.45);
+  --border-thickness:6px;
+  --max-width:1100px;
+}
+
+.feature-card-outer-r{
+  /* width:92%; */
+  /* max-width:var(--max-width); */
+  margin:48px ;
+  padding:var(--border-thickness);
+  background:linear-gradient(90deg,var(--black) 0%, var(--yellow) 50%, #f5e36a 100%);
+  box-shadow:0 8px 30px rgba(0,0,0,0.18);
+}
+
+.feature-card-r{
+  display:flex;
+  gap:32px;
+  align-items:center;
+  background:linear-gradient(180deg,var(--black-2),var(--black));
+  padding:28px;
+  box-shadow:var(--card-shadow);
+  border-radius:0;
+  overflow:hidden;
+  color:#fff;
+}
+
+.feature-left-r{
+  flex:1 1 auto;
+}
+.feature-left-r h2{
+  margin:0 0 8px 0;
+  font-size:28px;
+  color:var(--yellow);
+  line-height:1.12;
+  font-weight:700;
+}
+.feature-left-r p{
+  margin:0;
+  font-size:16px;
+  line-height:1.7;
+  color:var(--muted);
+  max-width:720px;
+}
+
+.feature-right-r{
+  flex:0 0 320px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.feature-right-r img{
+  width:100%;
+  max-width:320px;
+  height:190px;
+  object-fit:cover;
+  display:block;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+  transition:transform .28s ease, box-shadow .28s ease;
+}
+
+@media (hover:hover){
+  .feature-right-r img:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 48px rgba(0,0,0,0.7);
+  }
+}
+
+@media (max-width:880px){
+  .feature-card-r{
+    gap:20px;
+    padding:22px;
+  }
+  .feature-right-r img{
+    height:150px;
+    max-width:260px;
+  }
+  .feature-left-r h2{font-size:22px;}
+  .feature-left-r p{font-size:15px;}
+}
+
+@media (max-width:640px){
+  .feature-card-r{
+    flex-direction:column-reverse;
+    align-items:stretch;
+    padding:18px;
+  }
+
+  .feature-right-r{
+    width:100%;
+    flex-basis:auto;
+    margin-bottom:12px;
+  }
+  .feature-right-r img{
+    width:100%;
+    height:auto;
+    aspect-ratio:16/9;
+  }
+
+  .feature-left-r{
+    padding:6px 4px 2px;
+  }
+  .feature-left-r h2{font-size:20px;}
+  .feature-left-r p{font-size:15px; line-height:1.6;}
+}
+
+@media (max-width:420px){
+  .feature-card-outer-r{padding:4px;}
+  .feature-card-r{padding:14px;}
+}

@@ -1,0 +1,18 @@
+{
+  "name": "competitve-tracker",
+  "version": "1.0.0",
+  "description": "This is a webapp to keep track of the competitive blueprint of an iindividual on the internet",
+  "license": "ISC",
+  "author": "Arka Pal",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "mongoose": "^9.0.0",
+    "path": "^0.12.7"
+  }
+}
