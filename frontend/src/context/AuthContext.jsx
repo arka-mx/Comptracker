@@ -3,6 +3,9 @@ import toast from 'react-hot-toast';
 
 const AuthContext = createContext();
 
+// Get API URL from env or default to relative path (which uses proxy in dev)
+const BASE_URL = import.meta.env.VITE_API_URL || '';
+
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -11,7 +14,10 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const loadUser = async () => {
             try {
-                const res = await fetch('/api/auth/me');
+                // If checking auth status on a different domain, credentials: 'include' is crucial
+                const res = await fetch(`${BASE_URL}/api/auth/me`, {
+                    credentials: 'include'
+                });
                 const data = await res.json();
                 if (data.user) {
                     setUser(data.user);
@@ -26,24 +32,12 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const loginWithGoogle = async (token) => {
-        // In a real Google Auth flow (using @react-oauth/google), 'token' is the ID token returned by Google
-        // For this implementation, since we are moving away from the "Simulated" flow where we just passed email,
-        // we need to expect a token. 
-
-        // HOWEVER, since the user hasn't set up the Google Client ID yet, the Login component 
-        // won't be able to get a *real* Google token to send here.
-
-        // To keep the app functional for the user to verify the "structure", 
-        // I will add a fallback that assumes if 'token' is just an email string (from our mock login UI),
-        // we might need a dev-only endpoint or handle it. 
-        // But ideally, the backend expects a JWT from Google.
-
-        // For now, let's implement the standard fetch call.
         try {
-            const res = await fetch('/api/auth/google', {
+            const res = await fetch(`${BASE_URL}/api/auth/google`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token })
+                body: JSON.stringify({ token }),
+                credentials: 'include'
             });
             const data = await res.json();
             if (res.ok) {
@@ -51,8 +45,6 @@ export const AuthProvider = ({ children }) => {
                 return data.user;
             } else {
                 console.error('Login failed:', data.message);
-                // Fallback for demo if backend rejects (due to missing keys)
-                // We alert the user they need to configure env
                 toast.error(`Backend Login Failed: ${data.message}. \n\nPlease configure server .env with real keys.`);
                 return null;
             }
@@ -62,14 +54,13 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Keep the Github mock or remove? User asked to "implement google auth". 
-    // We can keep github as a simulated fallback or separate route.
     const loginWithEmail = async (email, password) => {
         try {
-            const res = await fetch('/api/auth/login', {
+            const res = await fetch(`${BASE_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password }),
+                credentials: 'include'
             });
             const data = await res.json();
             if (res.ok) {
@@ -87,10 +78,11 @@ export const AuthProvider = ({ children }) => {
 
     const registerWithEmail = async (email, password, name) => {
         try {
-            const res = await fetch('/api/auth/register', {
+            const res = await fetch(`${BASE_URL}/api/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, name })
+                body: JSON.stringify({ email, password, name }),
+                credentials: 'include'
             });
             const data = await res.json();
             if (res.ok) {
@@ -108,10 +100,11 @@ export const AuthProvider = ({ children }) => {
 
     const loginWithGithub = async (code) => {
         try {
-            const res = await fetch('/api/auth/github', {
+            const res = await fetch(`${BASE_URL}/api/auth/github`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code })
+                body: JSON.stringify({ code }),
+                credentials: 'include'
             });
             const data = await res.json();
             if (res.ok) {
@@ -129,16 +122,15 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await fetch('/api/auth/logout', { method: 'POST' });
+            await fetch(`${BASE_URL}/api/auth/logout`, {
+                method: 'POST',
+                credentials: 'include'
+            });
             setUser(null);
         } catch (err) {
             console.error('Logout failed', err);
         }
     };
-
-
-
-
 
     const updateHandle = async (platform, handle) => {
         // Optimistic update
@@ -148,10 +140,11 @@ export const AuthProvider = ({ children }) => {
         }));
 
         try {
-            const res = await fetch('/api/auth/update-handles', {
+            const res = await fetch(`${BASE_URL}/api/auth/update-handles`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ platform, handle })
+                body: JSON.stringify({ platform, handle }),
+                credentials: 'include'
             });
             const data = await res.json();
             if (data.user) setUser(data.user);
@@ -162,10 +155,11 @@ export const AuthProvider = ({ children }) => {
 
     const updateProfile = async (details) => {
         try {
-            const res = await fetch('/api/auth/update-profile', {
+            const res = await fetch(`${BASE_URL}/api/auth/update-profile`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(details)
+                body: JSON.stringify(details),
+                credentials: 'include'
             });
             const data = await res.json();
             if (res.ok) {
@@ -182,7 +176,10 @@ export const AuthProvider = ({ children }) => {
 
     const deleteAccount = async () => {
         try {
-            const res = await fetch('/api/auth/delete', { method: 'DELETE' });
+            const res = await fetch(`${BASE_URL}/api/auth/delete`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
             if (res.ok) {
                 setUser(null);
                 return true;

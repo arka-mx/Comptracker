@@ -1,9 +1,13 @@
 // Simulate fetching data from platforms
 // In a real app, this would call backend proxies to avoid CORS or use official APIs
 
+const BASE_URL = import.meta.env.VITE_API_URL || '';
+
 export const fetchLeetCodeStats = async (handle) => {
     try {
-        const response = await fetch(`/api/auth/leetcode/${handle}`);
+        const response = await fetch(`${BASE_URL}/api/auth/leetcode/${handle}`, {
+            credentials: 'include'
+        });
         if (!response.ok) throw new Error('Failed to fetch LeetCode');
         const data = await response.json();
 
