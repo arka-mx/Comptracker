@@ -135,24 +135,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Helper to update stats in state and backend
-    const updateStats = async (platform, count) => {
-        // Optimistic update
-        setUser(prev => ({
-            ...prev,
-            stats: { ...prev?.stats, [platform]: count }
-        }));
 
-        try {
-            await fetch('/api/auth/update-stats', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ platform, count })
-            });
-        } catch (err) {
-            console.error('Failed to sync stats to backend', err);
-        }
-    }
 
 
 
@@ -211,7 +194,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, loginWithGoogle, loginWithGithub, loginWithEmail, registerWithEmail, logout, updateStats, updateHandle, updateProfile, deleteAccount }}>
+        <AuthContext.Provider value={{ user, loading, loginWithGoogle, loginWithGithub, loginWithEmail, registerWithEmail, updateHandle, updateProfile, deleteAccount, logout }}>
             {children}
         </AuthContext.Provider>
     );

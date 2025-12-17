@@ -45,6 +45,7 @@ router.post('/register', async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
+            path: '/',
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
@@ -88,6 +89,7 @@ router.post('/login', async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
+            path: '/',
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
@@ -187,6 +189,7 @@ router.post('/github', async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
+            path: '/',
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
@@ -272,6 +275,7 @@ router.post('/google', async (req, res) => {
         res.cookie('token', jwtToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
+            path: '/',
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
@@ -318,37 +322,7 @@ router.get('/me', async (req, res) => {
     }
 });
 
-// @route   POST /api/auth/update-stats
-// @desc    Update user stats
-router.post('/update-stats', async (req, res) => {
-    try {
-        const token = req.cookies.token;
-        if (!token) return res.status(401).json({ message: 'Not authenticated' });
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const { platform, count } = req.body;
-
-        const updateField = {};
-        updateField[`stats.${platform}`] = count;
-
-        let user;
-        if (decoded.type === 'local') {
-            user = await LocalUser.findByIdAndUpdate(decoded.id, {
-                $set: updateField
-            }, { new: true }).select('-password');
-        } else {
-            user = await User.findByIdAndUpdate(decoded.id, {
-                $set: updateField
-            }, { new: true });
-        }
-
-        res.json({ user: { ...user.toObject(), type: decoded.type } });
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Server Error' });
-    }
-});
 
 // @route   POST /api/auth/update-handles
 // @desc    Update user handles
@@ -423,7 +397,8 @@ router.post('/update-profile', async (req, res) => {
 router.post('/logout', (req, res) => {
     res.clearCookie('token', {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production'
+        secure: process.env.NODE_ENV === 'production',
+        path: '/'
     });
     res.json({ message: 'Logged out' });
 });
@@ -445,7 +420,8 @@ router.delete('/delete', async (req, res) => {
 
         res.clearCookie('token', {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production'
+            secure: process.env.NODE_ENV === 'production',
+            path: '/'
         });
         res.json({ message: 'Account deleted' });
 
