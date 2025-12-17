@@ -74,8 +74,7 @@
     gap: 10px;
 }
 
-.btn-update,
-.btn-inc {
+.btn-update {
     flex: 1;
     padding: 8px;
     border-radius: 6px;
@@ -86,16 +85,7 @@
     transition: all 0.2s;
 }
 
-.btn-inc {
-    flex: 0 0 40px;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-update:hover,
-.btn-inc:hover {
+.btn-update:hover {
     background: var(--text-secondary);
     color: var(--bg-primary);
 }
@@ -114,4 +104,34 @@
     justify-content: center;
     color: var(--text-secondary);
     margin-top: 20px;
+}
+
+.codeforces-title {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+}
+
+.user-handle-hint {
+    color: #a1a1aa;
+    /* Default dark mode gray */
+}
+
+.edit-handle-btn {
+    color: #a1a1aa;
+}
+
+[data-theme="light"] .user-handle-hint {
+    color: #000000;
+    font-weight: 500;
+}
+
+[data-theme="light"] .edit-handle-btn {
+    color: #000000;
+}
+
+[data-theme="light"] .codeforces-card {
+    background: #f4f4f5;
+    /* Grayish background */
+    border-color: #d4d4d8 !important;
+    /* Grayish border override */
 }

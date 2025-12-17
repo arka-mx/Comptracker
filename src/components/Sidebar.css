@@ -52,3 +52,8 @@
 .logo-icon {
     color: var(--accent-color);
 }
+
+[data-theme="light"] .sidebar {
+    background-color: #ffffff;
+    border-right-color: #e4e4e7;
+}

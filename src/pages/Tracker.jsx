@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { fetchLeetCodeStats, fetchCodeForcesStats } from '../services/api';
 import './Tracker.css';
 
-const PlatformCard = ({ name, platformId, icon: Icon, color, initialCount, storageKey, apiFunc, userHandle, onUpdateHandle }) => {
+const PlatformCard = ({ name, platformId, icon: Icon, color, initialCount, storageKey, apiFunc, userHandle, onUpdateHandle, titleClassName, className }) => {
     const [count, setCount] = useState(() => {
         const saved = localStorage.getItem(storageKey);
         // If saved exists, use it. Otherwise use initialCount if provided, else "-"
@@ -57,12 +57,12 @@ const PlatformCard = ({ name, platformId, icon: Icon, color, initialCount, stora
     };
 
     return (
-        <div className="platform-card" style={{ borderColor: color }}>
+        <div className={`platform-card ${className || ''}`} style={{ borderColor: color }}>
             <div className="card-header">
                 <div className="icon-wrapper" style={{ backgroundColor: `${color}20`, color: color }}>
                     <Icon size={24} />
                 </div>
-                <h3>{name}</h3>
+                <h3><span className={titleClassName}>{name}</span></h3>
             </div>
             <div className="card-body">
                 <div className="count-display">
@@ -88,10 +88,10 @@ const PlatformCard = ({ name, platformId, icon: Icon, color, initialCount, stora
                         </div>
                     ) : (
                         <>
-                            <span className="user-handle-hint" style={{ fontSize: '12px', color: '#a1a1aa' }}>
+                            <span className="user-handle-hint" style={{ fontSize: '12px' }}>
                                 {userHandle ? `@${userHandle}` : 'Not connected'}
                             </span>
-                            <button onClick={() => setIsEditing(true)} style={{ background: 'none', border: 'none', color: '#a1a1aa', cursor: 'pointer', padding: 0 }}>
+                            <button className="edit-handle-btn" onClick={() => setIsEditing(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
                                 <Edit2 size={12} />
                             </button>
                         </>
@@ -99,7 +99,7 @@ const PlatformCard = ({ name, platformId, icon: Icon, color, initialCount, stora
                 </div>
 
                 <div className="button-group">
-                    <button className="btn-inc" onClick={() => setCount(c => c + 1)} title="Increment">+</button>
+
                     <button className="btn-update" onClick={handleUpdate} disabled={isUpdating || !userHandle}>
                         {isUpdating ? 'Syncing...' : 'Update'}
                     </button>
@@ -136,10 +136,12 @@ const Tracker = () => {
                     />
 
                     <PlatformCard
-                        name="CodeForces"
+                        name="Codeforces"
                         platformId="codeforces"
                         icon={Terminal}
                         color="#318ce7"
+                        titleClassName="codeforces-title"
+                        className="codeforces-card"
                         storageKey={`codeforces_${codeforcesHandle}`}
                         apiFunc={fetchCodeForcesStats}
                         userHandle={codeforcesHandle}

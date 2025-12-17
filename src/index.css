@@ -11,12 +11,12 @@
 }
 
 [data-theme="light"] {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f4f4f5;
-  --bg-tertiary: #e4e4e7;
+  --bg-primary: #fffaf5;
+  --bg-secondary: linear-gradient(135deg, #fff7ed 0%, #ffe4bc 100%);
+  --bg-tertiary: #ffedd5;
   --text-primary: #18181b;
-  --text-secondary: #71717a;
-  --border-color: #e4e4e7;
+  --text-secondary: #8c7e73;
+  --border-color: #fed7aa;
 }
 
 * {
